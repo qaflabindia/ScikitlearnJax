@@ -33,9 +33,17 @@ from numpy.testing import assert_allclose as np_assert_allclose
 from numpy.testing import (
     assert_almost_equal,
     assert_array_almost_equal,
-    assert_array_equal,
     assert_array_less,
 )
+from numpy.testing import assert_array_equal as np_assert_array_equal
+
+def assert_array_equal(actual, desired, err_msg='', verbose=True, strict=False):
+    """Wrapper around numpy.testing.assert_array_equal to handle JAX arrays natively.
+    By default (strict=False), it treats NaNs as equal.
+    """
+    actual = np.asarray(actual)
+    desired = np.asarray(desired)
+    np_assert_array_equal(actual, desired, err_msg=err_msg, verbose=verbose, strict=strict)
 
 from sklearn import __file__ as sklearn_path
 from sklearn.utils import (

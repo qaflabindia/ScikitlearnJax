@@ -23,6 +23,10 @@ import random
 
 from sklearn._config import config_context, get_config, set_config
 
+# sklearnjax: Enforce 64-bit precision globally to prevent silent precision loss
+import jax
+jax.config.update("jax_enable_x64", True)
+
 logger = logging.getLogger(__name__)
 
 
